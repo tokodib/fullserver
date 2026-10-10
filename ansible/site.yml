@@ -1,0 +1,34 @@
+---
+- name: Configure all servers
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Gather system information
+      ansible.builtin.setup:
+
+    - name: Install basic packages
+      ansible.builtin.apt:
+        name:
+          - vim
+          - git
+          - curl
+          - htop
+          - btop
+          - mc
+        state: present
+        update_cache: true
+
+- name: Configure monitoring servers
+  hosts: monitoring
+  become: true
+  
+  tasks:
+    - name: Gather system information
+      ansible.builtin.setup:
+
+    - name: Install basic packages
+      ansible.builtin.apt:
+        name:
+          - neofetch
+        state: present
