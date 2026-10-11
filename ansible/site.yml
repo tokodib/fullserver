@@ -2,33 +2,31 @@
 - name: Configure all servers
   hosts: all
   become: true
-  
-  tasks:
-    - name: Gather system information
-      ansible.builtin.setup:
 
-    - name: Install basic packages
-      ansible.builtin.apt:
-        name:
-          - vim
-          - git
-          - curl
-          - htop
-          - btop
-          - mc
-        state: present
-        update_cache: true
+  roles:
+    - common
+    - docker
+    - webmin
 
-- name: Configure monitoring servers
+
+- name: Configure monitoring server
   hosts: monitoring
   become: true
-  
-  tasks:
-    - name: Gather system information
-      ansible.builtin.setup:
 
-    - name: Install basic packages
-      ansible.builtin.apt:
-        name:
-          - neofetch
-        state: present
+  roles:
+    - monitoring
+
+- name: Configure Developer server
+  hosts: developer
+  become: true
+
+  roles:
+    - developer
+
+- name: Configure Media server
+  hosts: media
+  become: true
+
+  roles:
+    - media
+

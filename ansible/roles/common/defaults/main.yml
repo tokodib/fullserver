@@ -1,0 +1,11 @@
+common_packages:
+  - curl
+  - wget
+  - mc
+  - htop
+  - btop
+  - ncdu
+  - vim
+  - git
+  - unzip
+  - tree

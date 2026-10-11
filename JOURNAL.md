@@ -36,3 +36,11 @@ Next step: Review the playbook structure, verify the configuration is repeatable
 
 Git commit: Configure base packages with Ansible
 
+### 2026-10-11 - Docker and Webmin setup and verification
+    - Installed and configured Docker Engine and Webmin on all three Ubuntu VMs
+    - Installed Docker Compose plugin on all three VMs
+    - Confirmed that the Docker service is active on each VM.
+    - Kept Webmin available on all three servers for web-based administration
+    - Added automated system package upgrades to the common Ansible configuration
+    - Ran the Ansible playbook successfully across all three VMs
+
