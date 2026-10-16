@@ -44,3 +44,84 @@ Git commit: Configure base packages with Ansible
     - Added automated system package upgrades to the common Ansible configuration
     - Ran the Ansible playbook successfully across all three VMs
 
+### 2026-10-16 – Docker Services and Centralized Management
+
+Overview
+
+Deployed and verified the main Docker services across the three Ubuntu virtual machines managed by the Proxmox homelab. The monitoring VM now provides centralized container management through Portainer and centralized log viewing through Dozzle.
+
+Developer VM (192.168.1.130)
+
+Installed and configured the following containers:
+
+Gitea – self-hosted Git service for source code and configuration repositories.
+
+MariaDB – relational database server.
+
+PostgreSQL – relational database server.
+
+pgAdmin – web-based PostgreSQL administration.
+
+phpMyAdmin – web-based MariaDB/MySQL administration.
+
+Portainer Agent – allows the central Portainer instance to manage Docker on this VM.
+
+Dozzle Agent – provides container logs to the central Dozzle instance.
+
+Media VM (192.168.1.120)
+
+Installed and configured:
+
+Plex – media server for streaming the local media library to the Hisense TV over the home network.
+
+Portainer Agent – enables centralized Docker management.
+
+Dozzle Agent – forwards container logs to the monitoring VM.
+
+Plex playback was tested successfully on the local network. Remote access is not required.
+
+Monitoring VM (192.168.1.150)
+
+Installed and configured:
+
+Portainer Server – central management interface for Docker environments on all three VMs.
+
+Dozzle – centralized log viewer for local containers and remote agents.
+
+Uptime Kuma – service availability monitoring.
+
+Heimdall – dashboard for accessing homelab services.
+
+Centralized Management and Verification
+
+Added the Developer and Media Docker environments to Portainer using Portainer Agents.
+
+Verified that containers from all three VMs appear in the central Portainer interface.
+
+Configured Dozzle to connect to the remote agents on the Developer and Media VMs.
+
+Confirmed that the main services are running and visible in the management interfaces.
+
+Architecture Notes
+
+The three VMs have separate responsibilities: development, media, and monitoring.
+
+Portainer provides centralized Docker administration.
+
+Dozzle provides centralized container log access.
+
+Plex is intended for local-network use only.
+
+Service configurations should be maintained in version control and automated through Ansible where practical.
+
+Next Steps
+
+Review and document Docker Compose configurations for each service.
+
+Ensure service deployments are reproducible through Ansible.
+
+Configure and verify Uptime Kuma checks for important services.
+
+Review backup and recovery procedures for application data and databases.
+
+Keep credentials and other secrets out of Git.

@@ -5,7 +5,7 @@ locals {
       name      = "developer"
       ip        = "192.168.1.130/24"
       cores     = 2
-      memory    = 4096
+      memory    = 6144
       disk_size = 40
     }
 

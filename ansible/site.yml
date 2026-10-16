@@ -15,13 +15,20 @@
 
   roles:
     - monitoring
-
+    - heimdall
+    - dozzle
+    - portainer
+    - uptimekuma
+    
 - name: Configure Developer server
   hosts: developer
   become: true
 
   roles:
     - developer
+    - dozzle-agent
+    - databases
+    - gitea
 
 - name: Configure Media server
   hosts: media
@@ -29,4 +36,5 @@
 
   roles:
     - media
+    - dozzle-agent
 

@@ -1,0 +1,26 @@
+services:
+  postgresql:
+    image: postgres:latest
+    container_name: postgresql
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: "{{ vault_postgresql.POSTGRES_DB }}"
+      POSTGRES_USER: "{{ vault_postgresql.POSTGRES_USER }}"
+      POSTGRES_PASSWORD: "{{ vault_postgresql.POSTGRES_PASSWORD }}"
+
+    volumes:
+      - postgresql_data:/var/lib/postgresql
+
+    networks:
+      - database-net
+
+    ports:
+      - "127.0.0.1:5432:5432"
+
+volumes:
+  postgresql_data:
+
+networks:
+  database-net:
+    name: database-net

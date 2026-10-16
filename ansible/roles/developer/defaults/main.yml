@@ -1,2 +1,3 @@
 common_packages:
   - mc
+  - python3-psycopg2

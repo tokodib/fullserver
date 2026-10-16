@@ -1,6 +1,47 @@
 ---
-- name: Install common packages
+- name: Install media server packages
   ansible.builtin.apt:
     name: "{{ common_packages }}"
     state: present
     update_cache: true
+    cache_valid_time: 3600
+
+- name: Create media mount point
+  ansible.builtin.file:
+    path: "{{ media_mount_point }}"
+    state: directory
+    mode: "0755"
+
+- name: Configure persistent NFS mount
+  ansible.builtin.mount:
+    path: "{{ media_mount_point }}"
+    src: "{{ media_nfs_server }}:{{ media_nfs_export }}"
+    fstype: nfs
+    opts: "defaults,_netdev,x-systemd.automount"
+    state: mounted
+
+- name: Create Plex directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: automation
+    group: automation
+    mode: "0755"
+  loop:
+    - "{{ plex_config_dir }}"
+    - "{{ plex_transcode_dir }}"
+
+- name: Deploy Plex Docker Compose configuration
+  ansible.builtin.template:
+    src: plex-compose.yml.j2
+    dest: /opt/docker/plex/compose.yml
+    owner: automation
+    group: automation
+    mode: "0644"
+
+- name: Start Plex container
+  community.docker.docker_compose_v2:
+    project_src: /opt/docker/plex
+    files:
+      - compose.yml
+    state: present

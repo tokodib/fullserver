@@ -1,2 +1,14 @@
 common_packages:
-  - mc
+  - nfs-common
+
+media_nfs_server: "192.168.1.200"
+media_nfs_export: "/mnt/data"
+media_mount_point: "/mnt/media"
+
+#Plex configuration
+plex_config_dir: "/opt/docker/plex/config"
+plex_transcode_dir: "/opt/docker/plex/transcode"
+plex_media_dir: "/mnt/media/Media"
+plex_timezone: "Europe/Belgrade"
+plex_puid: 1000
+plex_pgid: 1000
